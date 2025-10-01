@@ -15,11 +15,8 @@ header-includes:
     \usepackage{setspace}
     % Ambiente Fonte: centralizado, espaçamento 1, itálico, sem espaço extra
     \newenvironment{Fonte}
-      {\par\begin{center}\begingroup\setstretch{1}\small}
+      {\par\begin{center}\begingroup\setstretch{1}\normalsize}
       {\par\endgroup\end{center}}
-
-    \usepackage{titling}
-    \setlength{\droptitle}{-1.2cm} % sobe tudo
 
     % cabeçalhos e rodapés
     \usepackage{fancyhdr}
@@ -27,18 +24,16 @@ header-includes:
     \fancyhf{} % limpa cabeçalho/rodapé
 
     % Cabeçalho à esquerda (2 linhas)
-    \fancyhead[L]{%
+    \fancyhead[C]{%
       \begin{tabular}[t]{@{}l@{}}
-        II Seminário Mineiro de EPT\\
-        25 a 27 de setembro de 2025
+        II Seminário Mineiro da Educação Profissional e Tecnológica  - 25 a 27 de setembro de 2025
       \end{tabular}
     }
 
     % Rodapé central (2 linhas), sem número de página
     \fancyfoot[C]{%
       \begin{tabular}[t]{@{}c@{}}
-        II Seminário Mineiro de Educação Profissional e Tecnológica\\
-        25 a 27 de setembro de 2025
+        Mestrado Profissional em Educação Profissional e Tecnológica – ProfEPT CEFET-MG
       \end{tabular}
     }
 
@@ -50,33 +45,39 @@ header-includes:
     \fancyheadoffset{0pt}
     \fancyfootoffset{0pt}
 
+    % numero de página no canto inferior direito
+    \fancyfoot[R]{\thepage}
+
     % Garante que a página "plain" (ex.: após \maketitle) use o mesmo estilo
     \fancypagestyle{plain}{%
       \fancyhf{}
-      \fancyhead[L]{%
-        \begin{tabular}[t]{@{}l@{}}
-          II Seminário Mineiro de EPT\\
-          25 a 27 de setembro de 2025
-        \end{tabular}
-      }
-      \fancyfoot[C]{%
-        \begin{tabular}[t]{@{}c@{}}
-          II Seminário Mineiro de Educação Profissional e Tecnológica\\
-          25 a 27 de setembro de 2025
-        \end{tabular}
-      }
       \renewcommand{\headrulewidth}{0pt}
       \renewcommand{\footrulewidth}{0pt}
     }
+
+    % título
+    
+    \usepackage{titling}
+    % Sobe o bloco de título para "colar" no topo da página:
+    %\setlength{\droptitle}{-6em} % ajuste fino: -4em a -10em conforme sua margem
+    % Imagem acima do título:
+
+    % --- Título com logo acima (ajuste seu includegraphics como já usa) ---
+    \pretitle{%
+      \begin{center}
+      \vspace*{-1.5cm}%
+      \includegraphics[width=\textwidth]{images/logo.png}\\[0.75\baselineskip]
+      \Large
+    }
+
     ```
-title: |
-    ![](./images/logo.png){width=100%}
-    APRENDIZAGEM BASEADA EM HIPERFOCOS: PROJETOS DE PROGRAMAÇÃO COM ESTUDANTES AUTISTAS
+title: "\"Título do Artigo\""
+subtitle: "Subtítulo (opcional)"
 author:
-    - "\\href{mailto:ascanio@cefetmg.br}{M.Sc. Diego Ascânio Santos} \\thanks{Departamento de Computação, CEFET-MG, Divinópolis, MG, Brasil.}"
-    - "\\href{mailto:thabatta@cefetmg.br}{Drª. Thabatta Moreira Alves de Araújo}\\footnotemark[1]" # para mesma filiação do autor anterior, use footnotemark correspondente
-    - "\\href{mailto:andeersonribeiro@cefetmg.br}{M.Sc. Anderson Ribeiro de Oliveira Santos Silva}\\thanks{Departamento de Educação, CEFET-MG, Divinópolis / Belo Horizonte, MG, Brasil.}"
-date: 21 setembro 2025
+  - "\\normalsize \\href{mailto:author1@inst1.edu}{Nome Sobrenome Primeiro Autor}\\thanks{Instituição do Primeiro Autor – ex.: CEFET-MG}"
+  - "\\normalsize \\href{mailto:author2@inst2.edu}{Nome Sobrenome Segundo Autor}\\thanks{Instituição do Segundo Autor – ex.: UEMG}"
+  - "\\normalsize \\href{mailto:author3@inst3.edu}{Nome Sobrenome Terceiro Autor}\\thanks{Instituição do Terceiro Autor – ex.: UEMG}"
+date: ""
 lang: pt-BR
 
 # Citações e bibliografia (ABNT)
@@ -92,30 +93,23 @@ fontsize: 12pt
 linestretch: 1.5
 papersize: a4
 geometry:
-  - left=3cm
+  - left=2cm
   - right=2cm
-  - top=3cm
-  - bottom=2cm
+  - top=1cm
+  - bottom=1cm
   - includehead
   - includefoot
   - headheight=28pt   # altura do cabeçalho
-  - headsep=10pt      # espaço entre cabeçalho e texto
-  - footskip=20pt     # distância do rodapé ao texto
+  - headsep=15pt      # espaço entre cabeçalho e texto
+  - footskip=15pt     # distância do rodapé ao texto
   - heightrounded
-indent: true
+indent: false
 toc: false 
 toc-title: "Sumário"
 toc-depth: 2
-abstract-title: "Resumo"
-
-# Palavras-chave ficam também nos metadados (além de impressas abaixo do Resumo)
-keywords:
-  - palavra-chave 1
-  - palavra-chave 2
-  - palavra-chave 3
 
 # Numeração de seções
-numbersections: true
+numbersections: false
 
 # Exemplos embutidos de referências (use estes ou troque pelo seu .bib)
 references:
@@ -155,16 +149,20 @@ references:
 
 ---
 
-## Resumo
+\vspace{-\baselineskip}
+
+**Resumo**
 
 Escreva aqui um **resumo** conciso (150–250 palavras) apresentando o tema, objetivo(s), método(s), resultado(s) principais e conclusão(ões). O resumo deve ser **informativo** e autossuficiente, sem citações extensas nem abreviações não definidas.
 
 **Palavras-chave:** palavra-chave 1; palavra-chave 2; palavra-chave 3.
 
-### Abstract (opcional)
+**Abstract (opcional)**
 
 Short version of the abstract in English (if required by the venue).  
 **Keywords:** keyword 1; keyword 2; keyword 3.
+
+\newpage
 
 # Introdução
 

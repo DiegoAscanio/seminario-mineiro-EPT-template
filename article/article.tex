@@ -28,8 +28,18 @@
   \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
 \usepackage{xcolor}
-\usepackage[left=3cm,right=2cm,top=3cm,bottom=2cm,includehead,includefoot,headheight=28pt,headsep=10pt,footskip=20pt,heightrounded]{geometry}
+\usepackage[left=2cm,right=2cm,top=1cm,bottom=1cm,includehead,includefoot,headheight=28pt,headsep=5pt,footskip=15pt,heightrounded]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -40,23 +50,10 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\usepackage{graphicx}
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-% Set default figure placement to htbp
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
 \newlength{\csllabelwidth}
@@ -105,27 +102,22 @@
   {\par\begin{center}\begingroup\setstretch{1}\small}
   {\par\endgroup\end{center}}
 
-\usepackage{titling}
-\setlength{\droptitle}{-1.2cm} % sobe tudo
-
 % cabeçalhos e rodapés
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{} % limpa cabeçalho/rodapé
 
 % Cabeçalho à esquerda (2 linhas)
-\fancyhead[L]{%
+\fancyhead[C]{%
   \begin{tabular}[t]{@{}l@{}}
-    II Seminário Mineiro de EPT\\
-    25 a 27 de setembro de 2025
+    II Seminário Mineiro da Educação Profissional e Tecnológica  - 25 a 27 de setembro de 2025
   \end{tabular}
 }
 
 % Rodapé central (2 linhas), sem número de página
 \fancyfoot[C]{%
   \begin{tabular}[t]{@{}c@{}}
-    II Seminário Mineiro de Educação Profissional e Tecnológica\\
-    25 a 27 de setembro de 2025
+    Mestrado Profissional em Educação Profissional e Tecnológica – ProfEPT CEFET-MG
   \end{tabular}
 }
 
@@ -137,24 +129,51 @@
 \fancyheadoffset{0pt}
 \fancyfootoffset{0pt}
 
+% numero de página no canto inferior direito
+\fancyfoot[R]{\thepage}
+
 % Garante que a página "plain" (ex.: após \maketitle) use o mesmo estilo
 \fancypagestyle{plain}{%
   \fancyhf{}
-  \fancyhead[L]{%
-    \begin{tabular}[t]{@{}l@{}}
-      II Seminário Mineiro de EPT\\
-      25 a 27 de setembro de 2025
-    \end{tabular}
-  }
-  \fancyfoot[C]{%
-    \begin{tabular}[t]{@{}c@{}}
-      II Seminário Mineiro de Educação Profissional e Tecnológica\\
-      25 a 27 de setembro de 2025
-    \end{tabular}
-  }
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
 }
+
+% pacote titling
+
+\usepackage{titling}
+% Sobe o bloco de título para "colar" no topo da página:
+%\setlength{\droptitle}{-6em} % ajuste fino: -4em a -10em conforme sua margem
+% Imagem acima do título:
+
+% --- Tamanhos desejados ---
+\newcommand{\TitleSize}{\fontsize{18pt}{22pt}\selectfont}     % título 18/22
+\newcommand{\SubTitleSize}{\fontsize{15pt}{18pt}\selectfont}  % subtítulo 15/18
+\newcommand{\AuthorSize}{\fontsize{12pt}{14.4pt}\selectfont}  % autores 12/14.4
+
+% --- Título com logo acima (ajuste seu includegraphics como já usa) ---
+\pretitle{%
+  \begin{center}
+  \vspace*{-1.5cm}%
+  \includegraphics[width=\textwidth]{images/logo.png}\\[0.75\baselineskip]
+  \TitleSize
+}
+
+% --- Subtítulo (Pandoc define \subtitle; aqui forçamos o tamanho 15pt) ---
+%\makeatletter
+%\providecommand{\subtitle}[1]{%
+%  \posttitle{%
+%    \par\vspace{.25\baselineskip}%
+%    {\SubTitleSize #1\par}%
+%  }%
+%}
+%\makeatother
+
+% --- Autores em 12pt (vale para um ou vários autores; \and funciona normalmente) ---
+%\preauthor{%
+%  \begin{center}\AuthorSize
+%}
+%\postauthor{\par\end{center}}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -162,26 +181,28 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdftitle={ APRENDIZAGEM BASEADA EM HIPERFOCOS: PROJETOS DE PROGRAMAÇÃO COM ESTUDANTES AUTISTAS},
-  pdfauthor={ ; ; },
+  pdftitle={Título do Artigo},
+  pdfauthor={; ; },
   pdflang={pt-BR},
-  pdfkeywords={palavra-chave 1, palavra-chave 2, palavra-chave 3},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{\includegraphics[width=1\textwidth,height=\textheight]{./images/logo.png}
-APRENDIZAGEM BASEADA EM HIPERFOCOS: PROJETOS DE PROGRAMAÇÃO COM
-ESTUDANTES AUTISTAS}
-\author{\href{mailto:ascanio@cefetmg.br}{M.Sc. Diego Ascânio Santos}
-\thanks{Departamento de Computação, CEFET-MG, Divinópolis, MG, Brasil.} \and \href{mailto:thabatta@cefetmg.br}{Drª. Thabatta Moreira Alves de Araújo}\footnotemark[1] \and \href{mailto:andeersonribeiro@cefetmg.br}{M.Sc. Anderson Ribeiro de Oliveira Santos Silva}\thanks{Departamento de Educação, CEFET-MG, Divinópolis / Belo Horizonte, MG, Brasil.}}
-\date{21 setembro 2025}
+\title{Título do Artigo}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Subtítulo do Artigo (Opcional)}
+\author{\href{mailto:author1@inst1.edu}{Nome Sobrenome Primeiro Autor}\thanks{Instituição do Primeiro Autor – ex.: CEFET-MG} \and \href{mailto:author2@inst2.edu}{Nome Sobrenome Segundo Autor}\thanks{Instituição do Segundo Autor – ex.: UEMG} \and \href{mailto:author3@inst3.edu}{Nome Sobrenome Terceiro Autor}\thanks{Instituição do Terceiro Autor – ex.: UEMG}}
+\date{21 de setembro de 2025}
 
 \begin{document}
 \maketitle
 
 \setstretch{1.5}
-\hypertarget{resumo}{%
-\subsection{Resumo}\label{resumo}}
+\textbf{Resumo}
 
 Escreva aqui um \textbf{resumo} conciso (150--250 palavras) apresentando
 o tema, objetivo(s), método(s), resultado(s) principais e
@@ -191,14 +212,22 @@ autossuficiente, sem citações extensas nem abreviações não definidas.
 \textbf{Palavras-chave:} palavra-chave 1; palavra-chave 2; palavra-chave
 3.
 
-\hypertarget{abstract-opcional}{%
-\subsubsection{Abstract (opcional)}\label{abstract-opcional}}
+\textbf{Abstract (opcional)}
 
 Short version of the abstract in English (if required by the venue).\\
 \textbf{Keywords:} keyword 1; keyword 2; keyword 3.
 
+\newpage
+
 \hypertarget{introduuxe7uxe3o}{%
 \section{Introdução}\label{introduuxe7uxe3o}}
+
+Contextualize o problema, a motivação e os objetivos do estudo.
+Apresente brevemente a lacuna na literatura e contribuições do artigo.
+Cite trabalhos relevantes no fluxo do texto, por exemplo, segundo Silva
+(\protect\hyperlink{ref-silva2020}{2020}), a estruturação do projeto
+influencia a qualidade dos resultados; estudos recentes reforçam esse
+ponto (\protect\hyperlink{ref-souza2022}{Souza; Pereira, 2022}).
 
 Contextualize o problema, a motivação e os objetivos do estudo.
 Apresente brevemente a lacuna na literatura e contribuições do artigo.
